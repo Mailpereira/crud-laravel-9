@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\{
+    AlunosController
+};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/alunos', [AlunosController::class, 'index'])->name('alunos.index');
+Route::get('/alunos/{id}', [AlunosController::class, 'show'])->name('alunos.show');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
