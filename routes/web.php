@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
-    AlunosController
+    UsersController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/alunos', [AlunosController::class, 'index'])->name('alunos.index');
-Route::get('/alunos/{id}', [AlunosController::class, 'show'])->name('alunos.show');
+Route::get('/user', [UsersController::class, 'index'])->name('users.index');
+Route::get('/users/{id}', [UsersController::class, 'show'])->name('users.show');
 
 
 Route::get('/', function () {
