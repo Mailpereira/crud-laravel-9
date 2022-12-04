@@ -9,4 +9,11 @@
     </ul>
 
     <a href="{{ route('users.index') }}">Voltar</a>
+    
+    <form action="{{ route('users.delete', $user->id) }}" method="POST">
+        @method('DELETE')
+        @csrf
+        <button type="submit">Deletar</button>
+    </form>
+
 @endsection

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.delete');
 Route::put('/users/{id}', [UsersController::class, 'update'])->name('users.update');
 Route::get('/users/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
 Route::get('/users', [UsersController::class, 'index'])->name('users.index');
