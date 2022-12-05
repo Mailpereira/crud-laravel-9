@@ -8,10 +8,16 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+    protected $user; //injeção de dependencia
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function index(Request $request)
     {
         if($busca = $request->search){
-            $users = User::where('name', 'LIKE', "%{$busca}%")->get();
+            $users = $this->user->where('name', 'LIKE', "%{$busca}%")->get();
             return view('usuarios.index', compact('users'));
         }
         $users = User::get();
@@ -21,7 +27,7 @@ class UsersController extends Controller
     public function show($id)
     {
         //$user = User::find($id);
-        if(!$user = User::where('id', $id)->first()){
+        if(!$user = $this->user->where('id', $id)->first()){
             return redirect()->route('users.index');
         }
         return view('usuarios.show', compact('user'));
@@ -44,13 +50,13 @@ class UsersController extends Controller
         // $user->password = $request->password;
         // $user->save();
 
-        User::create($data);
+        $this->user->create($data);
         return redirect()->route('users.index');
     }
 
     public function edit($id)
     {
-        if(!$user = User::find($id)){
+        if(!$user = $this->user->find($id)){
             return redirect()->route('users.index');
         }
 
@@ -59,7 +65,7 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        if(!$user = User::find($id))
+        if(!$user = $this->user->find($id))
             return redirect()->route('users.index');
 
         $data = $request->only('name', 'email');
@@ -72,7 +78,7 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        if(!$user = User::find($id)){
+        if(!$user = $this->user->find($id)){
             return redirect()->route('users.index');
         }       
 
