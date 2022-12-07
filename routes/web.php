@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
+    CommentController,
     UsersController
 };
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/user/{id}/comment', [CommentController::class, 'index'])->name('user.comment.index');
+Route::get('/user/{id}/comment/create', [CommentController::class, 'create'])->name('user.comment.create');
+Route::post('/user/{id}/comment/store', [CommentController::class, 'store'])->name('user.comment.store');
+
 Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.delete');
 Route::put('/users/{id}', [UsersController::class, 'update'])->name('users.update');
 Route::get('/users/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
