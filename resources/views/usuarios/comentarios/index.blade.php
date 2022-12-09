@@ -9,8 +9,8 @@
     <h1>Comentarios do {{ $user->name }}</h1>
     <a href="{{ route('user.comment.create', $user->id) }}">Novo Comentario</a>
     <ul>
-        @foreach ($comentarios as $comentar)
-            <li>{{$comentar->body}} - {{$comentar->visible ? 'SIM' : 'NÃO'}}</li>        
+        @foreach ($comments as $comment)
+            <li>{{$comment->body}} - {{$comment->visible ? 'SIM' : 'NÃO'}} ## <a href="{{ route('user.comment.edit', ['user_id' => $user->id, 'comment_id' => $comment->id]) }}">Editar</a></li>        
         @endforeach
     </ul>    
 @endsection

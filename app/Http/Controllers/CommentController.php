@@ -24,9 +24,9 @@ class CommentController extends Controller
             return redirect()->route('users.index');
         }
 
-        $comentarios = $user->comments()->get();
+        $comments = $user->comments()->get();
 
-        return view('usuarios.comentarios.index', compact('user', 'comentarios'));
+        return view('usuarios.comentarios.index', compact('user', 'comments'));
     }
 
     public function create($userId)
@@ -53,4 +53,30 @@ class CommentController extends Controller
 
         return redirect()->route('user.comment.index', $user->id);
     }
+
+    public function edit($user_id, $comment_id)
+    {
+        if(!$comment = $this->comment->find($comment_id))
+            return redirect()->back();
+
+        $user = $comment->user;
+        
+        return view('usuarios.comentarios.edit', compact('user', 'comment')); 
+    }
+
+    public function update(Request $request, $id)
+    {
+        //dd($request);
+        if(!$comment = $this->comment->find($id))
+            return redirect()->back();
+
+        $comment->update([
+            'body' => $request->body,
+            'visible' => isset($request->visible)
+        ]);
+
+        return redirect()->route('user.comment.index', $comment->user_id);
+    }
+
+
 }

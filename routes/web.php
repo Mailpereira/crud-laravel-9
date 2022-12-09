@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/user/{id}/comment', [CommentController::class, 'index'])->name('user.comment.index');
 Route::get('/user/{id}/comment/create', [CommentController::class, 'create'])->name('user.comment.create');
+Route::get('/user/{user_id}/comment/{comment_id}', [CommentController::class, 'edit'])->name('user.comment.edit');
+Route::get('/user/{id}/comment', [CommentController::class, 'index'])->name('user.comment.index');
 Route::post('/user/{id}/comment/store', [CommentController::class, 'store'])->name('user.comment.store');
+Route::put('/comment/{id}', [CommentController::class, 'update'])->name('user.comment.update');
 
 Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.delete');
 Route::put('/users/{id}', [UsersController::class, 'update'])->name('users.update');
