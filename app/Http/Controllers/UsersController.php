@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUpdateUserFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -21,6 +22,7 @@ class UsersController extends Controller
             return view('usuarios.index', compact('users'));
         }
         $users = User::get();
+        //dd($users);
         return view('usuarios.index', compact('users'));
     }
 
@@ -44,6 +46,12 @@ class UsersController extends Controller
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
 
+        if($request->image){
+            //pegando a extensão do arquivo de imagem e salvando com a data atual
+            //$extension = $request->image->getClientOriginalExtension();
+            //$data['image'] = $request->image->storeAs('image-user', now() . "{$extension}");
+            $data['image'] = $request->image->store('image-user');
+        }
         // $user = new User;
         // $user->name = $request->name;
         // $user->email = $request->email;
@@ -72,6 +80,11 @@ class UsersController extends Controller
         if($request->password)
             $data['password'] = bcrypt($request->password);
         
+        if($user->image && Storage::exists($user->image)){
+            Storage::delete($user->image);
+        }
+        $data['image'] = $request->image->store('image-user');
+        
         $user->update($data);
         return redirect()->route('users.index');
     }
@@ -83,7 +96,6 @@ class UsersController extends Controller
         }       
 
         $user->delete();
-
         return redirect()->route('users.index');
     }
 }

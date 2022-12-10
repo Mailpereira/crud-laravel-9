@@ -40,6 +40,11 @@ class StoreUpdateUserFormRequest extends FormRequest
                 'required',
                 'min:6',
                 'max:15'
+            ],
+            'image' => [
+                'nullable', //opicional da imagem
+                'image',
+                'max:2048' //tamanho da imagem
             ]
         ];
 

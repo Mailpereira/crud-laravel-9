@@ -23,9 +23,7 @@ class CommentController extends Controller
         {
             return redirect()->route('users.index');
         }
-
-        $comments = $user->comments()->get();
-
+        $comments = $user->comments()->get();     
         return view('usuarios.comentarios.index', compact('user', 'comments'));
     }
 
@@ -78,5 +76,13 @@ class CommentController extends Controller
         return redirect()->route('user.comment.index', $comment->user_id);
     }
 
+    public function destroy($user_id, $id)
+    {   
+        $user = $this->user->find($user_id);
 
+        $comment = Comment::find($id);
+        $comment->delete();     
+      
+        return redirect()->route('user.comment.index', $user->id);        
+    }
 }

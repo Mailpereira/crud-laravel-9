@@ -3,7 +3,7 @@
 @section('content')
     <h1>Novo Usuário</h1>
     @include('components.component-error')
-    <form action="{{ route('users.store') }}" method="post">
+    <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
         @include('usuarios._partials.users-form')
     </form>
 @endsection
